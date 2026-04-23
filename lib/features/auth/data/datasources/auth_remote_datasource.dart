@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+
 import '../../../../core/constants/api_constants.dart';
 import '../../../../core/errors/exceptions.dart';
 import '../../../../core/network/api_client.dart';
@@ -26,11 +27,28 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
         ApiConstants.login,
         data: {'email': email, 'password': password},
       );
+      final accessToken = res.data['access_token'] as String;
+      final refreshToken = res.data['refresh_token'] as String;
+
+      UserModel user;
+      final userJson = res.data['user'] as Map<String, dynamic>?;
+
+      if (userJson != null) {
+        user = UserModel.fromJson(userJson);
+      } else {
+        final profileResponse = await Dio().get(
+          '${ApiConstants.baseUrl}${ApiConstants.profile}',
+          options: Options(
+            headers: {'Authorization': 'Bearer $accessToken'},
+          ),
+        );
+        user = UserModel.fromJson(profileResponse.data as Map<String, dynamic>);
+      }
+
       return (
-        accessToken: res.data['access_token'] as String,
-        refreshToken: res.data['refresh_token'] as String,
-        user: UserModel.fromJson(res.data['user'] as Map<String, dynamic>? ??
-            {'id': 0, 'name': '', 'email': email, 'role': 'customer'}),
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+        user: user,
       );
     } on DioException catch (e) {
       throw ServerException(

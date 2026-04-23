@@ -13,7 +13,7 @@ class LoginPage extends ConsumerStatefulWidget {
 
 class _LoginPageState extends ConsumerState<LoginPage> {
   final _emailController = TextEditingController(text: 'admin@mail.com');
-  final _passwordController = TextEditingController(text: 'changeme');
+  final _passwordController = TextEditingController(text: 'admin123');
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -58,7 +58,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Default prototype credentials are prefilled for the EscuelaJS API.',
+                    'Default prototype credentials are prefilled: admin@mail.com / admin123.',
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   const SizedBox(height: 24),
