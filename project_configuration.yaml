@@ -1,0 +1,70 @@
+project:
+  name: SmartKartAI
+  purpose: E-commerce platform
+  audience: Internal team
+
+platforms:
+  android: true
+  ios: true
+  web: true
+  desktop: false
+
+localization:
+  strategy: modular_future_ready
+  initial_locales:
+    - en
+
+architecture:
+  dependency_injection: riverpod
+  state_management: riverpod
+  pattern: clean_architecture
+  folder_structure: features/{feature_name}/{presentation,domain,data}
+
+team:
+  size: 2-5
+  product_stage: prototype
+  expected_screens: 10-30
+  flutter_experience: advanced
+  code_generation: none
+  code_style: moderate
+  ide: android_studio_intellij
+
+backend:
+  api_type: rest
+  base_urls:
+    dev: https://api.escuelajs.co/api/v1
+    qa: https://api.escuelajs.co/api/v1
+    prod: https://api.escuelajs.co/api/v1
+  offline_support: true
+  local_storage: shared_preferences
+
+authentication:
+  method: jwt
+  secure_storage: flutter_secure_storage
+  env_management: flutter_dotenv
+
+environments:
+  setup: standard
+  app_names:
+    dev: SmartKartAI Dev
+    qa: SmartKartAI QA
+    prod: SmartKartAI
+
+testing:
+  level: important
+  coverage_target: 40-60
+  test_types:
+    - unit
+  framework: mockito_flutter_test
+
+cicd:
+  level: partial
+  platform: github_actions
+
+monitoring:
+  level: logging_only
+
+optional_features:
+  - image_handling
+  - keyboard_input_helpers
+
